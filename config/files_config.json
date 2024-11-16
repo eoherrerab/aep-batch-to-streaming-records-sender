@@ -1,0 +1,15 @@
+{
+    "FILEKEYWORD":{
+        "aep":{
+            "dataflow_id":"DATAFLOW_ID_FROM_EXPERIENCE_PLATFORM"
+        },
+        "ajo":{
+            "reentrance_wait_period": 60
+        },
+        "file":{
+            "identity_column":"COLUMN_NAME_IN_FILE_CONTAINING_PRIMARY_IDENTITY",
+            "generate_uuid": true,
+            "generate_timestamp": true
+        }
+    }
+}
