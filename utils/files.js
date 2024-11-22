@@ -214,29 +214,47 @@ function has_file_allowed_file_format(file_path, allowed_file_extensions){
 }
 
 /*Se define una función para mover archivos a una ruta definida*/
-async function move_file_to_folder(file_path, folder_path){
+async function move_file_to_folder(absolute_source_file_path, absolute_source_folder_path, absolute_destination_folder_path){
 
     /*Se define una variable boleana que permite conocer si finalizó el cambio de ruta, inicializada en false*/
     let is_file_moved = false
 
     try{
 
-        /*Se define una variable que contiene la ruta destino de almacenamiento de los archivos*/
-        let destination_folder_path = path.resolve(__dirname, "..", folder_path)
+        /*Se establece la variable definida anteriormente como la ruta
+        absoluta de fuente de almacenamiento del archivo a mover*/
+        absolute_source_file_path = path.resolve(absolute_source_file_path)
 
-        /*Se define una variable que contiene la ruta destino del archivo*/
-        let destination_file_path = path.resolve(destination_folder_path, path.basename(file_path))
+        /*Se establece la variable definida anteriormente como la ruta
+        absoluta de fuente de almacenamiento de los archivos*/
+        absolute_source_folder_path = path.resolve(absolute_source_folder_path)
+
+        /*Se establece la variable definida anteriormente como la ruta
+        absoluta de destino de almacenamiento de los archivos*/
+        absolute_destination_folder_path = path.resolve(absolute_destination_folder_path)
+
+        /*Se define una variable que contiene la ruta relativa
+        fuente de almacenamiento de los archivos*/
+        let relative_source_file_path = path.relative(absolute_source_folder_path, absolute_source_file_path)
+
+        /*Se define una variable que contiene la ruta absoluta
+        final de destino de almacenamiento de los archivos*/
+        let final_absolute_destination_folder_path = path.join(absolute_destination_folder_path, path.dirname(relative_source_file_path))
+
+        /*Se define una variable que contiene la ruta absoluta
+        final de destino de almacenamiento del archivo a mover*/
+        let final_absolute_destination_file_path = path.join(absolute_destination_folder_path, relative_source_file_path)
 
         /*Se evalua si la ruta destino de almacenamiento del archivo no existe*/
-        if (!fs.existsSync(destination_folder_path)) {
+        if (!fs.existsSync(final_absolute_destination_folder_path)) {
     
             /*Si la ruta destino de almacenamiento no existe, se genera la ruta*/
-            fs.mkdirSync(destination_folder_path, { recursive: true })
+            fs.mkdirSync(final_absolute_destination_folder_path, { recursive: true })
                     
         }
 
         /*Se cambia la ruta de almacenamiento del archivo actual por la nueva ruta de almacenamiento*/
-        fs.renameSync(file_path, destination_file_path)
+        fs.renameSync(absolute_source_file_path, final_absolute_destination_file_path)
 
         /*Se establece la variable definida anteriormente como valor true */
         is_file_moved = true

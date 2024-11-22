@@ -73,7 +73,7 @@ async function main(){
             for (let sent_file_path of sent_files_paths) {
 
                 /*Se ejecuta la función de cambio de ruta de almacenamiento*/
-                await files.move_file_to_folder(sent_file_path, process.env.LOCAL_OUTPUT_FILES_FOLDER_PATH)
+                await files.move_file_to_folder(sent_file_path, process.env.LOCAL_INPUT_FILES_FOLDER_PATH, process.env.LOCAL_OUTPUT_FILES_FOLDER_PATH)
             
             }
 
@@ -323,7 +323,7 @@ async function main(){
                 for (let sent_file_path of sent_files_paths) {
 
                     /*Se ejecuta la función de cambio de ruta de almacenamiento*/
-                    files.move_file_to_folder(sent_file_path, process.env.LOCAL_OUTPUT_FILES_FOLDER_PATH)
+                    files.move_file_to_folder(sent_file_path, process.env.LOCAL_INPUT_FILES_FOLDER_PATH, process.env.LOCAL_OUTPUT_FILES_FOLDER_PATH)
 
                 }
 
